@@ -4,6 +4,10 @@
 *.obj
 *.elf
 
+# Added
+*.bin
+*.iso
+
 # Libraries
 *.lib
 *.a
