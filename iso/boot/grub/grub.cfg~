@@ -1,3 +1,0 @@
-menuentry "Brian" {
-	mutliboot /boot/kernel.bin
-}
