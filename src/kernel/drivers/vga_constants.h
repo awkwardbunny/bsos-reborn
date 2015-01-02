@@ -6,8 +6,8 @@
 #define REG_SCREEN_DATA 0x3d5
 
 /* dimensions */
-#define VGA_HEIGHT 25
-#define VGA_WIDTH 80
+#define VGA_COLS 80
+#define VGA_ROWS 25
 
 /* colors */
 #define BLACK 0x0

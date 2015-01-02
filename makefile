@@ -1,25 +1,42 @@
+CSRC=$(wildcard src/kernel/*.c src/kernel/drivers/*.c)
+CHDR=$(wildcard src/kernel/*.h src/kernel/drivers/*.h)
+OBJ=${CSRC:.c=.o}
+
 PREFIX=i686-elf-
-CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
+AS=$(PREFIX)as
+LD=$(PREFIX)ld
+GCC=$(PREFIX)gcc
 
-bsos.iso: kernel.bin src/iso/boot/grub/grub.cfg
-	@echo Building bsos.iso...
-	@cp kernel.bin src/iso/boot/kernel.bin
-	@grub-mkrescue -o $@ src/iso/
+CFLAGS=-std=gnu99 -ffreestanding
+CFLAGS_KERNO=$(CFLAGS) -O2 -Wall -Wextra
+CFLAG_KERNEL=-T src/linker.ld -ffreestanding -O2 -nostdlib -lgcc
 
-kernel.o: src/kernel/main.c
-	@echo Building kernel.o...
-	@$(PREFIX)gcc -c src/kernel/main.c -o $@ $(CFLAGS)
+all: bsos.iso
 
 boot.o: src/boot/boot.s
 	@echo Building boot.o...
-	@$(PREFIX)as src/boot/boot.s -o $@
+	@$(AS) src/boot/boot.s -o src/boot/$@
 
-kernel.bin: boot.o kernel.o src/linker.ld
+src/kernel/kernel.o: src/kernel/kernel.c
+	@echo Building kernel.o...
+	@$(GCC) -c $^ -o $@ $(CFLAGS_KERNO)
+
+%.o: %.c ${CHDR}
+	@$(GCC) -c $< -o $@ $(CFLAGS)
+
+src/kernel.bin: src/boot/boot.o ${OBJ}
 	@echo Building kernel.bin...
-	@$(PREFIX)gcc -T src/linker.ld -o $@ -ffreestanding -O2 -nostdlib boot.o kernel.o -lgcc
+	@$(GCC) -o $@ $^ $(CFLAG_KERNEL)
+
+bsos.iso: src/kernel.bin src/iso/boot/grub/grub.cfg
+	@echo Building bsos.iso...
+	@cp src/kernel.bin src/iso/boot/kernel.bin
+	@grub-mkrescue -o $@ src/iso/
 
 clean:
 	@echo Cleaning...
-	@rm -rf *.o *.bin
-	@rm -rf /src/iso/boot/*.bin
-	@rm -i *.iso
+	@rm -rf src/iso/boot/kernel.bin
+	@rm -rf src/kernel.bin
+	@rm -rf src/boot/boot.o
+	@rm -rf ${OBJ}
+	@rm -if bsos.iso
