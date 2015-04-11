@@ -3,8 +3,7 @@ BSOS - Reborn
 A better version development of the [original 'BSOS' project](https://github.com/aplabs/bsos).
 
 One big change so far is that, instead of writing my own bootloader, I will be using GRUB and multiboot header.  
-The cross compiler used is from Richard Hull's [repo](https://github.com/rm-hull/i686-elf), built with instructions here: [http://wiki.osdev.org/GCC_Cross-Compiler](http://wiki.osdev.org/GCC_Cross-Compiler).  
-I claim no intellectual property over said materials.
+It's also built with a i686-elf cross-compiler built with instructions [here](http://wiki.osdev.org/GCC_Cross-Compiler) on the OSDEV wiki. The toolchain should be place under $HOME/opt/cross.
 
 ###Building
 ```
