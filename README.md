@@ -14,7 +14,7 @@ make
 ```
 
 ###Running
-With the Bochs emulator installed and configured with bochsrc file,
+Since the bochsrc configuration file is set for 'sdl' make sure bochs-sdl is installed. Since the Bochs emulator installed and configured with bochsrc file,
 ```
 bochs
 ```
