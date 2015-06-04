@@ -15,13 +15,27 @@
 #endif
 
 #include "drivers/vga.h"
+#include "drivers/system.h"
 
  
 #if defined(__cplusplus)
 extern "C" /* Use C linkage for kernel_main. */
 #endif
-void kernel_main()
+
+int kernel_main()
 {
-	clear_screen();
-	terminal_puts("Hello, kernel World!\n");
+	gdt_install();
+	init_video();
+	puts("Hello, kernel World!\n");
+
+	setcolor(0x12);
+	for(int i = 0; i < 26; i++)
+		puts("Hello, kernel World!\n");
+
+	setcolor(0x34);
+	for(int i = 0; i < 3; i++)
+		puts("Hello, kernel World!\n");
+
+	for(;;);
+	return 0;
 }

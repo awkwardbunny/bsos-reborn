@@ -28,7 +28,10 @@
 #define WHITE 0xF
 
 /* Special Characters */
-#define NEWLINE 0xA
+#define BACKSPACE 0x08
+#define TAB 0x09
+#define NEWLINE 0x0A
+#define CR 0x0D
 
 /* ORs two nibbles to create a color attribute */
 #define COLOR_ATTR(fg, bg) ((uint8_t) (fg | bg << 4))

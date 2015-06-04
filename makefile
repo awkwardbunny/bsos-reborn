@@ -1,15 +1,17 @@
-CSRC=$(wildcard src/kernel/*.c src/kernel/drivers/*.c)
-CHDR=$(wildcard src/kernel/*.h src/kernel/drivers/*.h)
-OBJ=${CSRC:.c=.o}
+CSRC = $(wildcard src/kernel/*.c src/kernel/drivers/*.c)
+CHDR = $(wildcard src/kernel/*.h src/kernel/drivers/*.h)
+OBJ = ${CSRC:.c=.o}
 
 PREFIX=i686-elf-
-AS=$(PREFIX)as
-LD=$(PREFIX)ld
-GCC=$(PREFIX)gcc
 
-CFLAGS=-std=gnu99 -ffreestanding
-CFLAGS_KERNO=$(CFLAGS) -O2 -Wall -Wextra
-CFLAG_KERNEL=-T src/linker.ld -ffreestanding -O2 -nostdlib -lgcc
+AS = $(PREFIX)as
+
+LD = $(PREFIX)ld
+
+GCC = $(PREFIX)gcc
+CFLAGS = -std=gnu99 -ffreestanding
+CFLAGS_KERNO = $(CFLAGS) -O2 -Wall -Wextra
+CFLAG_KERNEL = -T src/linker.ld -ffreestanding -O2 -nostdlib -lgcc
 
 all: bsos.iso
 
