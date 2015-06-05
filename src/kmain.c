@@ -14,8 +14,8 @@
 #error "This tutorial needs to be compiled with a ix86-elf compiler"
 #endif
 
-#include "drivers/vga.h"
-#include "drivers/system.h"
+#include "vga.h"
+#include "system.h"
 
  
 #if defined(__cplusplus)
