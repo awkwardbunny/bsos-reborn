@@ -1,6 +1,6 @@
-#include "system.h"
+#include "desc_tables.h"
 
-struct gdt_entry gdt[3];
+struct gdt_entry gdt[5];
 struct gdt_ptr gp;
 
 extern void gdt_flush();
@@ -23,8 +23,10 @@ void gdt_install(){
 	gp.base = (uint32_t)&gdt;
 
 	gdt_set_gate(0, 0, 0, 0, 0);
-	gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
+	gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); //Kernel
 	gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
+	gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); //User
+	gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF);
 
 	gdt_flush();
 }
