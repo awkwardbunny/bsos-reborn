@@ -15,15 +15,15 @@ kernel: src/start.o src/linker.ld src/kmain.o core
 #-ffreestanding -O2 -nostdlib -lgcc #not sure if I need this?
 
 core:
-	@cd src/core; $(MAKE) $(MFLAGS)
+	$(MAKE) -C src/core $(MFLAGS)
 
 src/start.o: src/start.s
 	@echo Building start.o...
 	@$(AS) src/start.s -o $@
 
-src/kmain.o: src/kmain.c
+src/kmain.o: src/kmain.c $(wildcard src/include/*)
 	@echo Building kmain.o...
-	@$(GCC) $(CFLAGS) -c $^ -I./src/include -o $@
+	@$(GCC) $(CFLAGS) -c $< -I./src/include -o $@
 #-O2 -Wall -Wextra #this too?
 #-Wall -m32 -O0 -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin #what about this?
 
@@ -32,8 +32,14 @@ run:
 
 clean:
 	@echo Cleaning...
+	
+	@echo Removing kernel...
 	@rm -rf iso/boot/kernel
 	@rm -rf kernel
+	
+	@echo Removing object files...
 	@rm -rf src/*.o
+
+	@echo Removing bsos.iso...
 	@rm -if bsos.iso
-	@for d in $(DIRS); do (cd $$d; $(MAKE) clean); done
+	@for d in $(DIRS); do ($(MAKE) -C $$d clean); done

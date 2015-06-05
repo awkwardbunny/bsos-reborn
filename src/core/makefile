@@ -11,4 +11,5 @@ all: $(OBJ)
 	@$(GCC) $(CFLAGS) -I../include -c -o $@ $<
 
 clean:
+	@echo Removing core object files...
 	@rm -f *.o
