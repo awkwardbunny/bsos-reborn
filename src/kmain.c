@@ -28,7 +28,7 @@ int kernel_main()
 	init_video();
 	puts("Hello, kernel World!\n");
 
-	//color ans scroll() test
+	//color and scroll() test
 	setcolor(0x12);
 	for(int i = 0; i < 26; i++)
 		puts("Hello, kernel World!\n");

@@ -81,7 +81,7 @@ ISR 4
 ISR 5
 ISR 6
 ISR 7
-ISR 8,0
+ISR 8,0 # Error codes are pushed, so don't put dummy
 ISR 9
 ISR 10,0
 ISR 11,0
@@ -130,7 +130,7 @@ isr_common:
 
 	popa
 
-	add $8, %esp
+	add $8, %esp # Add 8 to 'pop' the two numbers off the stack
 	sti
 	iret
 

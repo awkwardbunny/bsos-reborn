@@ -5,11 +5,11 @@
 #define REG_SCREEN_CTRL 0x3d4
 #define REG_SCREEN_DATA 0x3d5
 
-/* dimensions */
+/* VGA Dimensions */
 #define VGA_COLS 80
 #define VGA_ROWS 25
 
-/* colors */
+/* VGA Colors */
 #define BLACK 0x0
 #define BLUE 0x1
 #define GREEN 0x2
@@ -33,7 +33,8 @@
 #define NEWLINE 0x0A
 #define CR 0x0D
 
+/* MACRO for color attr */
 /* ORs two nibbles to create a color attribute */
 #define COLOR_ATTR(fg, bg) ((uint8_t) (fg | bg << 4))
 
-#endif /* VGA_CONSTANTS_H */
+#endif
