@@ -28,7 +28,7 @@ void timer_handler(struct registers regs){
 }
 
 void timer_install(){
-	irq_install_handler(0, timer_handler);
+	irq_install_handler(0, &timer_handler);
 }
 
 void timer_wait(int ticks){
