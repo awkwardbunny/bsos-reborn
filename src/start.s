@@ -140,7 +140,7 @@ isr_common:
 irq\num:
 	cli
 	push $0
-	push $\num
+	push $\num+32
 	jmp irq_common
 .endm
 

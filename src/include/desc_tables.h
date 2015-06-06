@@ -83,7 +83,7 @@ struct registers{
 }__attribute__((packed));
 
 void irq_install();
-void irq_install_handler(int irq, void (*handler)(struct registers *r));
+void irq_install_handler(int irq, void (*handler)(struct registers regs));
 void irq_uninstall_handler(int irq);
 
 #endif

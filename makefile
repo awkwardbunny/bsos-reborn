@@ -1,8 +1,8 @@
 include makefile.inc
-.PHONY: all clean core run
+.PHONY: all clean core run dump
 DIRS = src/core
 
-all: bsos.iso
+all: bsos.iso dump
 
 bsos.iso: kernel iso/boot/grub/grub.cfg
 	@echo Building bsos.iso...
@@ -27,6 +27,9 @@ src/kmain.o: src/kmain.c $(wildcard src/include/*)
 #-O2 -Wall -Wextra #this too?
 #-Wall -m32 -O0 -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin #what about this?
 
+dump:
+	@objdump -M intel -D kernel > dump
+
 run:
 	@./run
 
@@ -37,6 +40,9 @@ clean:
 	@rm -rf iso/boot/kernel
 	@rm -rf kernel
 	
+	@echo Removing dump file...
+	@rm -rf dump
+
 	@echo Removing object files...
 	@rm -rf src/*.o
 

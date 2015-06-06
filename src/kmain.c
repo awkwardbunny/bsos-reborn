@@ -15,6 +15,7 @@
 #include "vga.h"
 #include "system.h"
 #include "desc_tables.h"
+#include "timer.h"
  
 #if defined(__cplusplus)
 extern "C" /* Use C linkage for kernel_main. */
@@ -25,23 +26,18 @@ int kernel_main()
 	gdt_install();
 	idt_install();
 	irq_install();
+
 	asm volatile ("sti"); 
+
+	timer_install();
+	//timer_wait(10);
 
 	init_video();
 	puts("Hello, kernel World!\n");
 
-	//color and scroll() test
-	setcolor(0x12);
-	for(int i = 0; i < 26; i++)
-		puts("Hello, kernel World!\n");
-
-	setcolor(0x34);
-	for(int i = 0; i < 3; i++)
-		puts("Hello, kernel World!\n");
-
 	//IDT and ISR test
-	asm volatile ("int $0x3");
-	asm volatile ("int $0x4");
+	//asm volatile ("int $0x3");
+	//asm volatile ("int $0x4");
 
 	for(;;);
 	return 0;

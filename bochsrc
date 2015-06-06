@@ -30,6 +30,7 @@ magic_break: enabled=0
 port_e9_hack: enabled=0
 private_colormap: enabled=0
 clock: sync=none, time0=local, rtc_sync=0
+#clock: sync=slowdown, time0=local, rtc_sync=0
 # no cmosimage
 # no loader
 log: -
