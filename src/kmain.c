@@ -16,6 +16,7 @@
 #include "system.h"
 #include "desc_tables.h"
 #include "timer.h"
+#include "keyboard.h"
  
 #if defined(__cplusplus)
 extern "C" /* Use C linkage for kernel_main. */
@@ -31,6 +32,7 @@ int kernel_main()
 
 	timer_install();
 	//timer_wait(10);
+	kbd_install();
 
 	init_video();
 	puts("Hello, kernel World!\n");
