@@ -82,4 +82,8 @@ struct registers{
 	uint32_t eip, cs, eflags, useresp, ss;
 }__attribute__((packed));
 
+void irq_install();
+void irq_install_handler(int irq, void (*handler)(struct registers *r));
+void irq_uninstall_handler(int irq);
+
 #endif

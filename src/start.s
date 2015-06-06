@@ -134,4 +134,60 @@ isr_common:
 	sti
 	iret
 
+# IRQ Macro
+.macro IRQ num
+.global irq\num
+irq\num:
+	cli
+	push $0
+	push $\num
+	jmp irq_common
+.endm
+
+# IRQs
+IRQ 0
+IRQ 1
+IRQ 2
+IRQ 3
+IRQ 4
+IRQ 5
+IRQ 6
+IRQ 7
+IRQ 8
+IRQ 9
+IRQ 10
+IRQ 11
+IRQ 12
+IRQ 13
+IRQ 14
+IRQ 15
+
+.extern irq_handler
+irq_common:
+	pusha
+
+	push %ds
+	push %es
+	push %fs
+	push %gs
+
+	mov $0x10, %ax
+	mov %ax, %ds
+	mov %ax, %es
+	mov %ax, %fs
+	mov %ax, %gs
+
+	call irq_handler
+
+	pop %gs
+	pop %fs
+	pop %es
+	pop %ds
+
+	popa
+
+	add $8, %esp # Add 8 to 'pop' the two numbers off the stack
+	sti
+	iret
+
 .size _start, . - _start #Should this be here or up there?

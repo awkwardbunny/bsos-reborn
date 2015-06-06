@@ -24,6 +24,8 @@ int kernel_main()
 {
 	gdt_install();
 	idt_install();
+	irq_install();
+	asm volatile ("sti"); 
 
 	init_video();
 	puts("Hello, kernel World!\n");
