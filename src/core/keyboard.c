@@ -49,6 +49,8 @@ void kbd_handler(struct registers regs){
 	if(scancode & 0x80){
 		/* A KEY WAS RELEASED */
 	}else{
+    if(scancode == 0x44)
+      clear();
 		putc(kbd_map[scancode]);
 	}
 }
