@@ -49,8 +49,22 @@ void kbd_handler(struct registers regs){
 	if(scancode & 0x80){
 		/* A KEY WAS RELEASED */
 	}else{
-    if(scancode == 0x44)
+    if(scancode == 0x44) /* F10 */
       clear();
+    if(scancode == 0x3d) /* F3 */
+      setcolor(0x12);
+    if(scancode == 0x3e) /* F4 */
+      setcolor(0x34);
+    if(scancode == 0x3f) /* F5 */
+      setcolor(0x56);
+    if(scancode == 0x40) /* F6 */
+      setcolor(0x78);
+    if(scancode == 0x41) /* F7 */
+      setcolor(0x9a);
+    if(scancode == 0x42) /* F8 */
+      setcolor(0xbc);
+    if(scancode == 0x43) /* F9 */
+      setcolor(0x07);    /* Reset Colors */
 		putc(kbd_map[scancode]);
 	}
 }
