@@ -1,8 +1,7 @@
 #ifndef DESC_TABLES_H
 #define DESC_TABLES_H
 
-#include <stdint.h>
-#include <stddef.h>
+#include <system.h>
 
 /* GDT Stuff */
 struct gdt_entry{
