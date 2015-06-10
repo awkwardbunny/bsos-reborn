@@ -60,9 +60,9 @@ void kbd_handler(struct registers regs){
     if(scancode == 0x40) /* F6 */
       setcolor(0x78);
     if(scancode == 0x41) /* F7 */
-      setcolor(0x9a);
+      setcolor(0x0A); /* Matrix Colors */
     if(scancode == 0x42) /* F8 */
-      setcolor(0xbc);
+      setcolor(0x8A); /* Matrix Blink */
     if(scancode == 0x43) /* F9 */
       setcolor(0x07);    /* Reset Colors */
 		putc(kbd_map[scancode]);
