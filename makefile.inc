@@ -6,4 +6,4 @@ LD = $(PREFIX)ld
 LDFLAGS = -ffreestanding -O2 -nostdlib -lgcc
 
 GCC = $(PREFIX)gcc
-CFLAGS = -std=gnu99 -ffreestanding -finline-functions -nostdinc -fno-builtin -O2 -m32 -Wall -Wextra
+CFLAGS = -ffreestanding -O2 -nostdinc -std=gnu99 -m32 -finline-functions -fno-builtin -fstrength-reduce -Wall -Wextra

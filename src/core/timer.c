@@ -7,9 +7,9 @@ unsigned int timer_ticks = 0;
 unsigned int timer_hz = 18;
 unsigned int seconds = 0;
 
-void timer_phase(int hz){
+void timer_phase(unsigned int hz){
 	timer_hz = hz;
-	int divisor = 1193180 / hz;
+	unsigned int divisor = 1193180 / hz;
 	outb(0x43, 0x36);
 	outb(0x40, divisor & 0xFF);
 	outb(0x40, divisor >> 8);
@@ -31,7 +31,7 @@ void timer_install(){
 	irq_install_handler(0, &timer_handler);
 }
 
-void timer_wait(int ticks){
+void timer_wait(unsigned int ticks){
 	unsigned long eticks;
 
 	eticks = timer_ticks + ticks;

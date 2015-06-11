@@ -25,43 +25,43 @@ stack_top:
 
 # Start (Entry Point)
 _start:
-	movl $stack_top, %esp
+	movl $stack_top, %esp # Setup stack
 
 	call kernel_main # KERNEL! :)
 
 	cli
 	hlt
-.Lhang:
+.Lhang: # Hang
 	jmp .Lhang
 
 # Descriptor Tables
 # GDT
 .global gdt_flush
-.extern gp
+.extern gp # Linked from gdt.c
 gdt_flush:
 	
-	lgdt (gp)
+	lgdt (gp) # Load GDT
 	
-	mov $0x10, %ax
+	mov $0x10, %ax # GDT Offset (data segment)
 	mov %ax, %ds
 	mov %ax, %es
 	mov %ax, %fs
 	mov %ax, %gs
 	mov %ax, %ss
-	jmp $0x08, $flush2
+	jmp $0x08, $flush2 # Far jump to flush %cs (code segment)
 
 flush2:
 	ret
 
 # IDT
 .global idt_flush
-.extern ip
+.extern ip # Linked from idt.c
 idt_flush:
-	lidt (ip)
+	lidt (ip) # Load IDT
 	ret
 
 # ISR Macro
-.macro ISR num, ec=1
+.macro ISR num, ec=1 # If ec is not set, push dummy error code
 .global isr\num
 isr\num:
 	cli
@@ -139,8 +139,8 @@ isr_common:
 .global irq\num
 irq\num:
 	cli
-	push $0
-	push $\num+32
+	push $0 # Dummy error code since IRQs don't have
+	push $\num+32 # Map from ISR#32
 	jmp irq_common
 .endm
 

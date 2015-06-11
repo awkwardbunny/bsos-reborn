@@ -23,7 +23,6 @@ src/start.o: src/start.s
 src/kmain.o: src/kmain.c $(wildcard src/include/*)
 	@echo Building kmain.o...
 	@$(GCC) $(CFLAGS) -c $< -I./src/include -o $@
-#-O0 -fstrength-reduce -fomit-frame-pointer #not sure if I need this?
 
 dump:
 	@objdump -M intel -D kernel > dump
