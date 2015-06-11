@@ -3,9 +3,9 @@
 #include "port_io.h"
 #include "vga.h"
 
-int timer_ticks = 0;
-int timer_hz = 18;
-int seconds = 0;
+unsigned int timer_ticks = 0;
+unsigned int timer_hz = 18;
+unsigned int seconds = 0;
 
 void timer_phase(int hz){
 	timer_hz = hz;

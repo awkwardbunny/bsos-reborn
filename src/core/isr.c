@@ -1,7 +1,7 @@
 #include "desc_tables.h"
 #include "vga.h"
 
-unsigned char *exception_messages[] = {
+char *exception_messages[] = {
 	"division by zero",
 	"debug",
 	"non-maskable interrupt",
