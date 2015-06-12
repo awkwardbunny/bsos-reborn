@@ -29,4 +29,11 @@ SECTIONS
 		*(.bss)
 		*(.bootstrap_stack)
 	}
+	end = .;
+	/DISCARD/ :
+	{
+		*(.comment)
+		*(.eh_frame)
+		*(.note.gnu.build-id)
+	}
 }
