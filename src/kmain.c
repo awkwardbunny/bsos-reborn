@@ -17,12 +17,13 @@ extern "C" /* Use C linkage for kernel_main. */
 #endif
 
 #include "system.h"
+#include "multiboot.h"
 #include "vga.h"
 #include "desc_tables.h"
 #include "timer.h"
 #include "keyboard.h"
 
-int kernel_main()
+int kernel_main(struct multiboot *mb_ptr)
 {
 	gdt_install();
 	idt_install();
@@ -36,12 +37,6 @@ int kernel_main()
 
 	init_video();
 	puts("Hello, kernel World!\n");
-
-	
-
-	//IDT and ISR test
-	//asm volatile ("int $0x3");
-	//asm volatile ("int $0x4");
 
 	for(;;);
 	return 0;

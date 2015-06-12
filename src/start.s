@@ -27,6 +27,9 @@ stack_top:
 _start:
 	movl $stack_top, %esp # Setup stack
 
+	push %ebx # Push multiboot data
+	cli
+
 	call kernel_main # KERNEL! :)
 
 	cli
