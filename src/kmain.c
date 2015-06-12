@@ -1,11 +1,11 @@
 #if defined(__linux__)
-#error "You are not using a cross-compiler, you will most certainly run into trouble"
+#error "Please compile with i386-elf cross compiler!"
 #endif
  
 #if !defined(__i386__)
-#error "This tutorial needs to be compiled with a ix86-elf compiler"
+#error "Please compile with i386-elf compiler"
 #endif
- 
+
 #if defined(__cplusplus)
 extern "C" /* Use C linkage for kernel_main. */
 #else

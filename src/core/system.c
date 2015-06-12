@@ -1,15 +1,18 @@
 #include "system.h"
 
-uint8_t *memcpy(uint8_t *dest, uint8_t *src, size_t count){
+void *memcpy(void *dest, const void *src, size_t count){
+	uint8_t *a = dest;
+	const uint8_t *b = src;
 	for(size_t i = 0; i < count; i++){
-		dest[i] = src[i];
+		a[i] = b[i];
 	}
 	return dest;
 }
 
-uint8_t *memset (uint8_t *dest, uint8_t val, size_t count){
+void *memset (void *dest, uint8_t val, size_t count){
+	uint8_t *a = dest;
 	for(size_t i = 0; i < count; i++){
-		dest[i] = val;
+		a[i] = val;
 	}
 	return dest;
 }
