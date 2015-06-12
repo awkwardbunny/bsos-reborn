@@ -29,6 +29,7 @@ void timer_handler(struct registers regs){
 
 void timer_install(){
 	irq_install_handler(0, &timer_handler);
+	timer_phase(100); // Set to 100Hz
 }
 
 void timer_wait(unsigned int ticks){
