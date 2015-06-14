@@ -1,4 +1,4 @@
-#include "vga.h"
+#include <vga.h>
 
 uint16_t* video_memory;
 uint8_t terminal_color = COLOR_ATTR(LGRAY, BLACK);

@@ -1,4 +1,4 @@
-#include "desc_tables.h"
+#include <desc_tables.h>
 
 struct idt_entry idt[256];
 struct idt_ptr ip;

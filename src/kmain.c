@@ -3,7 +3,7 @@
 #endif
  
 #if !defined(__i386__)
-#error "Please compile with i386-elf compiler"
+#error "Please compile with i386-elf compiler!"
 #endif
 
 #if defined(__cplusplus)
@@ -16,12 +16,12 @@ extern "C" /* Use C linkage for kernel_main. */
 #define __bool_true_false_are_defined 1
 #endif
 
-#include "system.h"
-#include "multiboot.h"
-#include "vga.h"
-#include "desc_tables.h"
-#include "timer.h"
-#include "keyboard.h"
+#include <system.h>
+#include <multiboot.h>
+#include <vga.h>
+#include <desc_tables.h>
+#include <timer.h>
+#include <keyboard.h>
 
 int kernel_main(struct multiboot *mb_ptr)
 {
@@ -37,6 +37,7 @@ int kernel_main(struct multiboot *mb_ptr)
 
 	init_video();
 	puts("Hello, kernel World!\n");
+	printf("%s:%s:%s\n", "A", "B", "C");
 
 	for(;;);
 	return 0;

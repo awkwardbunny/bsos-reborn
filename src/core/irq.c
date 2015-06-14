@@ -1,5 +1,5 @@
-#include "desc_tables.h"
-#include "port_io.h"
+#include <desc_tables.h>
+#include <port_io.h>
 
 extern void irq0();
 extern void irq1();

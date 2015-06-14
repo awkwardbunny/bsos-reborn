@@ -1,7 +1,7 @@
-#include "timer.h"
-#include "desc_tables.h"
-#include "port_io.h"
-#include "vga.h"
+#include <timer.h>
+#include <desc_tables.h>
+#include <port_io.h>
+#include <vga.h>
 
 unsigned int timer_ticks = 0;
 unsigned int timer_hz = 18;

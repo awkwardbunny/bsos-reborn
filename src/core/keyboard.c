@@ -1,7 +1,7 @@
-#include "keyboard.h"
-#include "port_io.h"
-#include "desc_tables.h"
-#include "vga.h"
+#include <keyboard.h>
+#include <port_io.h>
+#include <desc_tables.h>
+#include <vga.h>
 
 unsigned char kbd_map[128] = {
   0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */

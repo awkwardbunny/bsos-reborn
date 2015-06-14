@@ -1,9 +1,9 @@
 #ifndef VGA_H
 #define VGA_H
 
-#include "system.h"
-#include "vga_constants.h"
-#include "port_io.h"
+#include <system.h>
+#include <vga_constants.h>
+#include <port_io.h>
 
 void init_video();
 void clear();

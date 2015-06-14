@@ -1,5 +1,5 @@
-#include "desc_tables.h"
-#include "vga.h"
+#include <desc_tables.h>
+#include <vga.h>
 
 char *exception_messages[] = {
 	"division by zero",

@@ -1,4 +1,4 @@
-#include "desc_tables.h"
+#include <desc_tables.h>
 
 struct gdt_entry gdt[5];
 struct gdt_ptr gp;
