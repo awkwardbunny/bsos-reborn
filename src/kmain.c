@@ -37,7 +37,7 @@ int kernel_main(struct multiboot *mb_ptr)
 
 	init_video();
 	puts("Hello, kernel World!\n");
-	printf("%s:%s:%s\n", "A", "B", "C");
+	printf("%c,%c,%c,%d\n", 'A', 'B', 'C', 1525);
 
 	for(;;);
 	return 0;
