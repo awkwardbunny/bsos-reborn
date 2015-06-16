@@ -1,5 +1,5 @@
 include makefile.inc
-.PHONY: all clean core run dump
+.PHONY: all clean core run
 DIRS = src/core
 
 all: bsos.iso dump
@@ -24,7 +24,7 @@ src/kmain.o: src/kmain.c $(wildcard src/include/*)
 	@echo Building kmain.o...
 	@$(GCC) $(CFLAGS) -c $< -I./src/include -o $@
 
-dump:
+dump: kernel
 	@objdump -M intel -D kernel > dump
 
 run:

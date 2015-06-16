@@ -58,6 +58,14 @@ void printf(const char *fmt, ...){
 				buf[beg+i] = buf[buf_i - i - 1];
 				buf[buf_i - i - 1] = c;
 			}
+		}else if(*f == 'x'){
+			num = (int)va_arg(args, int);
+			buf[buf_i++] = '0';
+			buf[buf_i++] = 'x';
+			int i = 8;
+			while (i-- > 0) {
+				buf[buf_i++] = "0123456789abcdef"[(num>>(i*4))&0xF];
+			}
 		}else{
 			buf[buf_i++] = *f;
 		}

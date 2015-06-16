@@ -30,3 +30,11 @@ size_t strlen(const char* str){
 		ret++;
 	return ret;
 }
+
+char* itoa(int val){
+	static char buf[32] = {0};
+	int i = 30;
+	for(; val && i; --i, val/=16)
+		buf[i] = "0123456789abcdef"[val % 16];
+	return &buf[i+1];
+}

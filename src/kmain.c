@@ -43,6 +43,7 @@ int kernel_main(struct multiboot *mb_ptr)
 	printf("12:%d\n", 12);
 	printf("-25:%d\n", -25);
 	printf("12309432:%d\n", 12309432);
+	printf("0x0000cafe:%x\n", 0xcafe);
 
 	for(;;);
 	return 0;
