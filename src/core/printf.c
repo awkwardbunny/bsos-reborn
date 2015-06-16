@@ -12,26 +12,15 @@ typedef __gnuc_va_list va_list;
 #define va_copy(d,s)	__builtin_va_copy(d,s)
 
 char buf[1024] = {-1};
-uint32_t buf_i = 0;
-
-void getDec(unsigned long val){
-	unsigned int n = val/10;
-	int r = val % 10;
-	if(r < 0){
-		r += 10;
-		n--;
-	}
-	if(val >= 10){
-		getDec(n);
-	}
-	buf[buf_i++] = (r+'0');
-}
+int buf_i = 0;
 
 void printf(const char *fmt, ...){
 	buf_i = 0;
 	va_list args;
 	va_start(args, fmt);
+
 	char * s;
+	int num;
 
 	for(const char *f = fmt; *f; f++){
 		if(*f != '%'){
@@ -40,24 +29,37 @@ void printf(const char *fmt, ...){
 		}
 		++f;
 		
-		switch(*f){
-			case 's':
-				s = (char *)va_arg(args, char *);
-				size_t len = strlen(s);
-				memcpy(&(buf[buf_i]), s, len);
-				buf_i += len;
-				break;
-			case 'c':
-				buf[buf_i++] = (char)va_arg(args, int); //GCC tells me to use int instaed of char?
-				break;
-			case '%':
-				buf[buf_i++] = '%';
-				break;
-			case 'd':
-				getDec((unsigned long)va_arg(args, unsigned long));
-				break;
-			default:
-				buf[buf_i++] = *f;
+		if(*f == 's'){
+			s = (char *)va_arg(args, char *);
+			size_t len = strlen(s);
+			memcpy(&(buf[buf_i]), s, len);
+			buf_i += len;
+		}else if(*f == 'c'){
+			buf[buf_i++] = (char)va_arg(args, int); //#1 (See notes.md)
+		}else if(*f == '%'){
+			buf[buf_i++] = '%';
+		}else if(*f == 'd'){
+			num = (int)va_arg(args, int);
+			if(num < 0){
+				buf[buf_i++] = '-';
+				num = 0-num;
+			}
+			int beg = buf_i;
+			while(num > 9){
+				int r = num % 10;
+				num = (num-r)/10;
+				buf[buf_i++] = (r+'0');
+			}
+			buf[buf_i++] = (num+'0');
+			
+			// Reverse
+			for(int i = 0; i < (buf_i - beg) / 2; i++){
+				char c = buf[beg+i];
+				buf[beg+i] = buf[buf_i - i - 1];
+				buf[buf_i - i - 1] = c;
+			}
+		}else{
+			buf[buf_i++] = *f;
 		}
 	}
 

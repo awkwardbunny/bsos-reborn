@@ -34,10 +34,15 @@ int kernel_main(struct multiboot *mb_ptr)
 	timer_install();
 	//timer_wait(10);
 	kbd_install();
-
 	init_video();
+
 	puts("Hello, kernel World!\n");
-	printf("%c,%c,%c,%d\n", 'A', 'B', 'C', 1525);
+	
+	/* printf test */
+	printf("Printf %s:\n", "Test");
+	printf("12:%d\n", 12);
+	printf("-25:%d\n", -25);
+	printf("12309432:%d\n", 12309432);
 
 	for(;;);
 	return 0;
