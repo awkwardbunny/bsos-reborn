@@ -35,7 +35,7 @@ void printf(const char *fmt, ...){
 			memcpy(&(buf[buf_i]), s, len);
 			buf_i += len;
 		}else if(*f == 'c'){
-			buf[buf_i++] = (char)va_arg(args, int); //#1 (See notes.md)
+			buf[buf_i++] = (char)va_arg(args, int); //#1 (See NOTES.md)
 		}else if(*f == '%'){
 			buf[buf_i++] = '%';
 		}else if(*f == 'd'){

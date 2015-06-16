@@ -1,8 +1,12 @@
 .code32
 
+# Multiboot Flags
 .set ALIGN,    1<<0
 .set MEMINFO,  1<<1
-.set FLAGS,    ALIGN | MEMINFO
+.set VIDMODE,  0<<2
+.set LOADADDR, 0<<16 # Using ELF, so 0
+
+.set FLAGS,    ALIGN | MEMINFO | VIDMODE | LOADADDR
 .set MAGIC,    0x1BADB002
 .set CHECKSUM, -(MAGIC + FLAGS)
 
