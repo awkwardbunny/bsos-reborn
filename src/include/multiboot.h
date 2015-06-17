@@ -1,5 +1,5 @@
-#ifndef MULTIBOOT_HEADER
-#define MULTIBOOT_HEADER
+#ifndef MULTIBOOT_H
+#define MULTIBOOT_H
 
 #include <system.h>
 

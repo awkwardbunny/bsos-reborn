@@ -22,19 +22,21 @@ extern "C" /* Use C linkage for kernel_main. */
 #include <desc_tables.h>
 #include <timer.h>
 #include <keyboard.h>
+#include <memory.h>
 
 int kernel_main(struct multiboot_info *mb_ptr)
 {
 	gdt_install();
 	idt_install();
+	isrs_install();
 	irq_install();
 
 	asm volatile ("sti"); 
 
+	init_video();
 	timer_install();
 	//timer_wait(10);
 	kbd_install();
-	init_video();
 
 	printf("Booted to KERNEL!\n");
 	printf("Booted from %s\n", mb_ptr->boot_loader_name);
@@ -56,6 +58,8 @@ int kernel_main(struct multiboot_info *mb_ptr)
 	printf("VBE seg: %x\t", mb_ptr->vbe_interface_seg);
 	printf("VBE off: %x\t", mb_ptr->vbe_interface_off);
 	printf("VBE len: %x\n", mb_ptr->vbe_interface_len);
+
+	setcolor(COLOR_ATTR(LGRAY, BLACK));
 
 	for(;;);
 	return 0;

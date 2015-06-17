@@ -18,6 +18,7 @@ uint16_t *memsetw (uint16_t *dest, uint16_t val, size_t count);
 size_t strlen (const char *str);
 char* itoa(int val);
 
+/* printf */
 void printf(const char *fmt, ...);
 
 #endif

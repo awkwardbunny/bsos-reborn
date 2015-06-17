@@ -3,7 +3,7 @@
 #include <desc_tables.h>
 #include <vga.h>
 
-unsigned char kbd_map[128] = {
+const unsigned char kbd_map[128] = {
   0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
   '9', '0', '-', '=', '\b',	/* Backspace */
   '\t',			/* Tab */
@@ -51,21 +51,26 @@ void kbd_handler(struct registers regs){
 	}else{
     if(scancode == 0x44) /* F10 */
       clear();
-    if(scancode == 0x3d) /* F3 */
+    else if(scancode == 0x3d) /* F3 */
       setcolor(0x12);
-    if(scancode == 0x3e) /* F4 */
+    else if(scancode == 0x3e) /* F4 */
       setcolor(0x34);
-    if(scancode == 0x3f) /* F5 */
+    else if(scancode == 0x3f) /* F5 */
       setcolor(0x56);
-    if(scancode == 0x40) /* F6 */
+    else if(scancode == 0x40) /* F6 */
       setcolor(0x78);
-    if(scancode == 0x41) /* F7 */
+    else if(scancode == 0x41) /* F7 */
       setcolor(0x0A); /* Matrix Colors */
-    if(scancode == 0x42) /* F8 */
+    else if(scancode == 0x42) /* F8 */
       setcolor(0x8A); /* Matrix Blink */
-    if(scancode == 0x43) /* F9 */
+    else if(scancode == 0x43) /* F9 */
       setcolor(0x07);    /* Reset Colors */
-		putc(kbd_map[scancode]);
+    else if(kbd_map[scancode] == 'q'){
+      uint32_t *ptr = (uint32_t *)0xA0000000; /* Inaccessible? */
+      uint32_t pf = *ptr;
+    }else{
+      putc(kbd_map[scancode]);
+    }
 	}
 }
 

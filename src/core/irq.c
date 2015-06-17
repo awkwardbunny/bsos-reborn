@@ -18,14 +18,14 @@ extern void irq13();
 extern void irq14();
 extern void irq15();
 
-void *irq_routines[16] = {0};
+void *irq_handlers[16] = {NULL};
 
 void irq_install_handler(int irq, void (*handler)(struct registers regs)){
-	irq_routines[irq] = handler;
+	irq_handlers[irq] = handler;
 }
 
 void irq_uninstall_handler(int irq){
-	irq_routines[irq] = 0;
+	irq_handlers[irq] = NULL;
 }
 
 void irq_remap(){
@@ -65,7 +65,7 @@ void irq_install(){
 void irq_handler(struct registers regs){
 	void (*handler)(struct registers r);
 
-	handler = irq_routines[regs.int_no - 32];
+	handler = irq_handlers[regs.int_no - 32];
 	if(handler){
 		handler(regs);
 	}
