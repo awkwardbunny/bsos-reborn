@@ -48,7 +48,7 @@ void check_bootloader_info(uint32_t magic, struct multiboot_info *mb_ptr){
 	uint32_t flags = mb_ptr->flags;
 
 	if(CHECK_FLAG(flags, 0)){
-		printf ("mem_lower = %dKB\tmem_upper = %dKB\n", mb_ptr->mem_lower, mb_ptr->mem_upper);
+		printf ("mem_lower = %dKB\tmem_upper = %dKB (%dMB)\n", mb_ptr->mem_lower, mb_ptr->mem_upper, (mb_ptr->mem_upper)/1024);
 	}
 	if(CHECK_FLAG(flags, 1)){
 		printf ("boot_device = %x\n", mb_ptr->boot_device);
@@ -64,4 +64,18 @@ void check_bootloader_info(uint32_t magic, struct multiboot_info *mb_ptr){
 		for (i = 0, mod = (mmlist *) mb_ptr->mods_addr; i < mb_ptr->mods_count; i++, mod++)
 			printf (" mod_start = %x, mod_end = %x, cmdline = %s\n", (unsigned)mod->mod_start, (unsigned)mod->mod_end, (char *) mod->string);
 	}
+	if (CHECK_FLAG (flags, 6)){
+		mb_memory_map_t *mmap;
+
+		printf ("mmap_addr = 0x%x, mmap_length = 0x%x\n", mb_ptr->mmap_addr, mb_ptr->mmap_length);
+
+		for (mmap = (mb_memory_map_t *) mb_ptr->mmap_addr; mmap < mb_ptr->mmap_addr + mb_ptr->mmap_length; mmap = (mb_memory_map_t *) ((unsigned long) mmap + (unsigned long) mmap->size + sizeof (mmap->size)))
+			printf (" size = %x, base_addr = %x %x,\n  length = %x %x, type = %x\n",
+				mmap->size,
+				mmap->addr >> 32,
+				mmap->addr & 0xffffffff,
+				mmap->len >> 32,
+				mmap->len & 0xffffffff,
+				mmap->type);
+   }
 }

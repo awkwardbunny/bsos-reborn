@@ -24,13 +24,13 @@ extern "C" /* Use C linkage for kernel_main. */
 #include <keyboard.h>
 #include <memory.h>
 
-int kernel_main(uint32_t magic, struct multiboot_info *mb_ptr)
+int kernel_main(uint32_t magic, mb_info_t *mb_ptr)
 {
 	init_video();
 
 	setcolor(0x02);
 	check_bootloader_info(magic, mb_ptr);
-	setcolor(COLOR_ATTR(LGRAY, BLACK));
+	setcolor(0x07);
 
 	asm volatile("cli");
 	gdt_install();
