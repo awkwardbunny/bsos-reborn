@@ -24,8 +24,13 @@ extern "C" /* Use C linkage for kernel_main. */
 #include <keyboard.h>
 #include <memory.h>
 
-int kernel_main(struct multiboot_info *mb_ptr)
+int kernel_main(uint32_t magic, struct multiboot_info *mb_ptr)
 {
+	init_video();
+	setcolor(0x02);
+	check_bootloader_info(magic, mb_ptr);
+	setcolor(COLOR_ATTR(LGRAY, BLACK));
+
 	gdt_install();
 	idt_install();
 	isrs_install();
@@ -33,7 +38,6 @@ int kernel_main(struct multiboot_info *mb_ptr)
 
 	asm volatile ("sti"); 
 
-	init_video();
 	timer_install();
 	//timer_wait(10);
 	kbd_install();

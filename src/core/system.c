@@ -1,4 +1,5 @@
 #include <system.h>
+#include <multiboot.h>
 
 void *memcpy(void *dest, const void *src, size_t count){
 	uint8_t *a = dest;
@@ -37,4 +38,30 @@ char* itoa(int val){
 	for(; val && i; --i, val/=16)
 		buf[i] = "0123456789abcdef"[val % 16];
 	return &buf[i+1];
+}
+
+void check_bootloader_info(uint32_t magic, struct multiboot_info *mb_ptr){
+	if(magic != MB_BOOTLOADER_MAGIC){
+		printf("Invalid magic number: %x\n", magic);
+	}
+
+	uint32_t flags = mb_ptr->flags;
+
+	if(CHECK_FLAG(flags, 0)){
+		printf ("mem_lower = %dKB\tmem_upper = %dKB\n", mb_ptr->mem_lower, mb_ptr->mem_upper);
+	}
+	if(CHECK_FLAG(flags, 1)){
+		printf ("boot_device = %x\n", mb_ptr->boot_device);
+	}
+	if(CHECK_FLAG(flags, 2)){
+		printf ("cmdline = %s\n", mb_ptr->cmdline);
+	}
+	if(CHECK_FLAG(flags, 3)){
+		printf ("mods_count = %d, mods_addr = %x\n", mb_ptr->mods_count, mb_ptr->mods_addr);
+		typedef struct multiboot_mod_list mmlist;
+		unsigned int i;
+		mmlist *mod;
+		for (i = 0, mod = (mmlist *) mb_ptr->mods_addr; i < mb_ptr->mods_count; i++, mod++)
+			printf (" mod_start = %x, mod_end = %x, cmdline = %s\n", (unsigned)mod->mod_start, (unsigned)mod->mod_end, (char *) mod->string);
+	}
 }

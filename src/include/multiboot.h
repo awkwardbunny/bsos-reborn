@@ -15,6 +15,8 @@
 #define MB_FLAG_APM 0x200
 #define MB_FLAG_VBE 0x400
 
+#define MB_BOOTLOADER_MAGIC 0x2BADB002
+
 #define CHECK_FLAG(flags,bit)   ((flags) & (1 << (bit)))
 
 struct multiboot_info{ //#2 (See NOTES.md)
@@ -43,4 +45,22 @@ struct multiboot_info{ //#2 (See NOTES.md)
 	uintptr_t vbe_interface_off;
 	uintptr_t vbe_interface_len;
 }__attribute__((packed));
+
+struct multiboot_mmap_entry{
+	uint32_t size;
+	uint64_t addr;
+	uint64_t len;
+#define MB_MEMORY_AVAILABLE 1
+#define MB_MEMORY_RESERVED 2
+	uint32_t type;
+}__attribute__((packed));
+
+struct multiboot_mod_list{
+	uint32_t mod_start;
+	uint32_t mod_end;
+	uint32_t string;
+	uint32_t padding;
+}__attribute__((packed));
+
+void check_bootloader_info(uint32_t magic, struct multiboot_info *mb_ptr);
 #endif

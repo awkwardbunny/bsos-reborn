@@ -31,8 +31,13 @@ stack_top:
 _start:
 	movl $stack_top, %esp # Setup stack
 
-	push %ebx # Push multiboot data
-	cli
+	pushl $0
+	popf # Clear EFLAGS
+
+	push %ebx # Push multiboot data address
+	push %eax # Magic Value
+
+	cli # Necessary?
 
 	call kernel_main # KERNEL! :)
 
