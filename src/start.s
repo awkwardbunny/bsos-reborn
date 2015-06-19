@@ -36,7 +36,7 @@ _start:
 
 	push %ebx # Push multiboot data address
 	push %eax # Magic Value
-
+	
 	call kernel_main # KERNEL! :)
 
 	cli
@@ -53,7 +53,6 @@ _start:
 .global gdt_flush
 .extern gp # Linked from gdt.c
 gdt_flush:
-	cli
 	lgdt (gp) # Load GDT
 	
 	mov $0x10, %ax # GDT Offset (data segment)
@@ -65,16 +64,13 @@ gdt_flush:
 	jmp $0x08, $flush2 # Far jump to flush %cs (code segment)
 
 flush2:
-	sti
 	ret
 
 # IDT
 .global idt_flush
 .extern ip # Linked from idt.c
 idt_flush:
-	cli
 	lidt (ip) # Load IDT
-	sti
 	ret
 
 # ISR Macro

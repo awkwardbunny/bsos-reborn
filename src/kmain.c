@@ -32,10 +32,12 @@ int kernel_main(uint32_t magic, struct multiboot_info *mb_ptr)
 	check_bootloader_info(magic, mb_ptr);
 	setcolor(COLOR_ATTR(LGRAY, BLACK));
 
+	asm volatile("cli");
 	gdt_install();
 	idt_install();
 	isrs_install();
 	irq_install();
+	asm volatile("sti");
 
 	timer_install();
 	//timer_wait(10);
