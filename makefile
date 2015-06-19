@@ -7,7 +7,7 @@ all: bsos.iso dump
 bsos.iso: kernel iso/boot/grub/grub.cfg
 	@echo Building bsos.iso...
 	@cp kernel iso/boot/kernel
-	@grub-mkrescue -o $@ iso/
+	@grub-mkrescue -o $@ iso/ -- -quiet
 	
 kernel: src/start.o src/linker.ld src/kmain.o core
 	@echo Building kernel...
