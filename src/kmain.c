@@ -23,6 +23,7 @@ extern "C" /* Use C linkage for kernel_main. */
 #include <timer.h>
 #include <keyboard.h>
 #include <memory.h>
+#include <paging.h>
 
 int kernel_main(uint32_t magic, mb_info_t *mb_ptr)
 {
@@ -38,6 +39,8 @@ int kernel_main(uint32_t magic, mb_info_t *mb_ptr)
 	isrs_install();
 	irq_install();
 	asm volatile("sti");
+
+	init_paging();
 
 	timer_install();
 	//timer_wait(10);

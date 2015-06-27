@@ -2,6 +2,7 @@
 #include <port_io.h>
 #include <desc_tables.h>
 #include <vga.h>
+#include <system.h>
 
 const unsigned char kbd_map[128] = {
   0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */

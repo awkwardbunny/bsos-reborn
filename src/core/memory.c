@@ -1,7 +1,8 @@
 #include <system.h>
 #include <memory.h>
 
-uint32_t placement_addr = 0;
+extern const uintptr_t end;
+uintptr_t placement_addr = (uintptr_t)&end;
 
 uint32_t kmalloc(uint32_t size){
 	uint32_t tmp = placement_addr;

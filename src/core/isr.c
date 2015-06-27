@@ -115,7 +115,7 @@ char *exception_messages[] = {
 };
 
 void isr_handler(struct registers regs){
-	puts("Received interrupt: ");
+	puts("\nReceived interrupt: ");
 	if(regs.int_no < 32){
 		void (*handler)(struct registers regs);
 		handler = isrs_handlers[regs.int_no];
