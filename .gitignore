@@ -26,6 +26,6 @@
 *.x86_64
 *.hex
 
-iso/boot/kernel
-kernel
+bskernel
 dump
+/build

@@ -3,14 +3,13 @@ BSOS - Reborn
 A better version development of the [original 'BSOS' project](https://github.com/aplabs/bsos).
 
 One big change so far is that, instead of writing my own bootloader, I will be using GRUB and multiboot header.  
-It's also built with a i686-elf cross-compiler built with instructions [here](http://wiki.osdev.org/GCC_Cross-Compiler) on the OSDEV wiki. The toolchain should be place under $HOME/opt/cross.
+It's also built with a i686-elf cross-compiler. The toolchain can be built with instructions [here](http://wiki.osdev.org/GCC_Cross-Compiler) on the OSDEV wiki or installed from other sources.
 
 ###Building
 Below will make a kernel file and an bootable .iso file.
 ```
 git clone https://github.com/awkwardbunny/bsos-reborn/
 cd bsos-reborn
-. ./setenv.sh
 make
 ```
 
