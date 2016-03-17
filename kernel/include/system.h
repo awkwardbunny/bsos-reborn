@@ -1,6 +1,8 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+#define MAGIC_BREAK __asm__("xchgw %bx, %bx");
+
 /* stdint.h */
 typedef unsigned char uint8_t;
 typedef unsigned short uint16_t;

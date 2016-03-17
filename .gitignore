@@ -26,6 +26,7 @@
 *.x86_64
 *.hex
 
+*.ini
 bskernel
 dump
 /build

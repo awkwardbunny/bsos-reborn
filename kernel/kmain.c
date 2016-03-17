@@ -48,6 +48,8 @@ int kernel_main(uint32_t magic, mb_info_t *mb_ptr)
 
 	printf("Booted to KERNEL!\n");
 
+	MAGIC_BREAK
+
 	for(;;);
 	return 0;
 }
