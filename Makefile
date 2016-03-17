@@ -21,7 +21,7 @@ dump: bskernel
 	@objdump -M intel -D $< > $@
 
 run:
-	echo "c" | bochs -q
+	(echo "c" && cat) | bochs -q
 
 clean:
 	@echo Cleaning...
