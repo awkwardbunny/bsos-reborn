@@ -75,13 +75,16 @@ void check_bootloader_info(uint32_t magic, struct multiboot_info *mb_ptr){
 
 		printf ("mmap_addr = %x, mmap_length = %x\n", mb_ptr->mmap_addr, mb_ptr->mmap_length);
 
-		for (mmap = (mb_memory_map_t *) mb_ptr->mmap_addr;(unsigned long) mmap < mb_ptr->mmap_addr + mb_ptr->mmap_length; mmap = (mb_memory_map_t *) ((unsigned long) mmap + mmap->size + sizeof (mmap->size)))
-			printf (" size = %x, base_addr = %x %x,\n  length = %x %x, type = %x\n",
-				mmap->size,
-				mmap->addr_high,
-				mmap->addr_low,
-				mmap->len_high,
-				mmap->len_low,
+		for (mmap = (mb_memory_map_t *) mb_ptr->mmap_addr;(unsigned long) mmap < mb_ptr->mmap_addr + mb_ptr->mmap_length; mmap = (mb_memory_map_t *) ((unsigned long) mmap + mmap->size + sizeof (mmap->size))){
+			uint64_t addr_base = mmap->addr;
+			uint64_t len = mmap->len;
+			uint64_t addr_end = addr_base + len;
+			printf ("From: %x %x To: %x %x, type = %x\n",
+				(int)(addr_base >> 32),
+				(int)(addr_base & 0xffffffff),
+				(int)(addr_end >> 32),
+				(int)(addr_end & 0xffffffff),
 				(unsigned) mmap->type);
+		}
    }
 }
