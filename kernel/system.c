@@ -50,12 +50,17 @@ void check_bootloader_info(uint32_t magic, struct multiboot_info *mb_ptr){
 	if(CHECK_FLAG(flags, 0)){
 		printf ("mem_lower = %dKB\tmem_upper = %dKB (%dMB)\n", mb_ptr->mem_lower, mb_ptr->mem_upper, (mb_ptr->mem_upper)/1024);
 	}
+
 	if(CHECK_FLAG(flags, 1)){
-		printf ("boot_device = %x\n", mb_ptr->boot_device);
+		unsigned int bd = mb_ptr->boot_device;
+		printf ("boot_device = %x; ", bd);
+		printf ("drive:%2x, part1:%2x, part2:%2x, part3:%2x\n", bd>>24 & 0xff, bd>>16 & 0xff, bd>>8 & 0xff, bd & 0xff );
 	}
+
 	if(CHECK_FLAG(flags, 2)){
 		printf ("cmdline = %s\n", mb_ptr->cmdline);
 	}
+
 	if(CHECK_FLAG(flags, 3)){
 		printf ("mods_count = %d, mods_addr = %x\n", mb_ptr->mods_count, mb_ptr->mods_addr);
 		typedef struct multiboot_mod_list mmlist;
@@ -64,18 +69,19 @@ void check_bootloader_info(uint32_t magic, struct multiboot_info *mb_ptr){
 		for (i = 0, mod = (mmlist *) mb_ptr->mods_addr; i < mb_ptr->mods_count; i++, mod++)
 			printf (" mod_start = %x, mod_end = %x, cmdline = %s\n", (unsigned)mod->mod_start, (unsigned)mod->mod_end, (char *) mod->string);
 	}
+
 	if (CHECK_FLAG (flags, 6)){
 		mb_memory_map_t *mmap;
 
-		printf ("mmap_addr = 0x%x, mmap_length = 0x%x\n", mb_ptr->mmap_addr, mb_ptr->mmap_length);
+		printf ("mmap_addr = %x, mmap_length = %x\n", mb_ptr->mmap_addr, mb_ptr->mmap_length);
 
-		for (mmap = (mb_memory_map_t *) mb_ptr->mmap_addr; mmap < (mb_memory_map_t *) mb_ptr->mmap_addr + mb_ptr->mmap_length; mmap = (mb_memory_map_t *) ((unsigned long) mmap + mmap->size + sizeof (mmap->size)))
+		for (mmap = (mb_memory_map_t *) mb_ptr->mmap_addr;(unsigned long) mmap < mb_ptr->mmap_addr + mb_ptr->mmap_length; mmap = (mb_memory_map_t *) ((unsigned long) mmap + mmap->size + sizeof (mmap->size)))
 			printf (" size = %x, base_addr = %x %x,\n  length = %x %x, type = %x\n",
 				mmap->size,
-				mmap->addr >> 32,
-				mmap->addr & 0xffffffff,
-				mmap->len >> 32,
-				mmap->len & 0xffffffff,
-				mmap->type);
+				mmap->addr_high,
+				mmap->addr_low,
+				mmap->len_high,
+				mmap->len_low,
+				(unsigned) mmap->type);
    }
 }

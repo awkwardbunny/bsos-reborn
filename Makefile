@@ -1,5 +1,5 @@
 include Makefile.inc
-.PHONY: all clean run bskernel
+.PHONY: all clean run
 
 C_SRC = $(wildcard kernel/*.c)
 OBJ = $(C_SRC:.c=.o)

@@ -30,7 +30,7 @@ void printf(const char *fmt, ...){
 		++f;
 		
 		if(*f == 's'){
-			s = (char *)va_arg(args, char *);
+			s = va_arg(args, char *);
 			size_t len = strlen(s);
 			memcpy(&(buf[buf_i]), s, len);
 			buf_i += len;
@@ -39,7 +39,7 @@ void printf(const char *fmt, ...){
 		}else if(*f == '%'){
 			buf[buf_i++] = '%';
 		}else if(*f == 'd'){
-			num = (int)va_arg(args, int);
+			num = va_arg(args, int);
 			if(num < 0){
 				buf[buf_i++] = '-';
 				num = 0-num;
@@ -58,8 +58,19 @@ void printf(const char *fmt, ...){
 				buf[beg+i] = buf[buf_i - i - 1];
 				buf[buf_i - i - 1] = c;
 			}
+		}else if(*f >= '0' && *f <= '9'){
+			int i = *f-'0';
+			f++;
+			if(*f == 'x'){
+				num = va_arg(args, int);
+				buf[buf_i++] = '0';
+				buf[buf_i++] = 'x';
+				while (i-- > 0) {
+					buf[buf_i++] = "0123456789abcdef"[(num>>(i*4))&0xF];
+				}
+			}
 		}else if(*f == 'x'){
-			num = (int)va_arg(args, int);
+			num = va_arg(args, int);
 			buf[buf_i++] = '0';
 			buf[buf_i++] = 'x';
 			int i = 8;
