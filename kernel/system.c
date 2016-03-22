@@ -48,7 +48,7 @@ void check_bootloader_info(uint32_t magic, struct multiboot_info *mb_ptr){
 	uint32_t flags = mb_ptr->flags;
 
 	if(CHECK_FLAG(flags, 0)){
-		printf ("mem_lower = %dKB\tmem_upper = %dKB (%dMB)\n", mb_ptr->mem_lower, mb_ptr->mem_upper, (mb_ptr->mem_upper)/1024);
+		printf ("mem_lower = %dKB\tmem_upper = %dKB (%dMB) %x\n", mb_ptr->mem_lower, mb_ptr->mem_upper, mb_ptr->mem_upper >> 10, mb_ptr->mem_upper + 1024  << 10);
 	}
 
 	if(CHECK_FLAG(flags, 1)){
@@ -79,7 +79,7 @@ void check_bootloader_info(uint32_t magic, struct multiboot_info *mb_ptr){
 			uint64_t addr_base = mmap->addr;
 			uint64_t len = mmap->len;
 			uint64_t addr_end = addr_base + len;
-			printf ("From: %x %x To: %x %x, type = %x\n",
+			printf ("From: %x %x To: %x %x Type: %x\n",
 				(int)(addr_base >> 32),
 				(int)(addr_base & 0xffffffff),
 				(int)(addr_end >> 32),
