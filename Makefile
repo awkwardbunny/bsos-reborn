@@ -12,7 +12,7 @@ all: bskernel bsos.iso
 bsos.iso: bskernel iso/boot/grub/grub.cfg
 	@echo Building bsos.iso...
 	@cp bskernel iso/boot/bskernel
-	@grub-mkrescue -d /usr/lib/grub/i386-pc/ -o $@ iso/ -- -quiet
+	@grub-mkrescue -d /usr/lib/grub/i386-pc/ -o $@ iso/ --
 	
 bskernel: kernel/linker.ld $(OBJ)
 	@echo Building kernel...
@@ -21,7 +21,7 @@ bskernel: kernel/linker.ld $(OBJ)
 dump: bskernel
 	@objdump -M intel -D $< > $@
 
-run:
+run: bsos.iso
 	(echo "c" && cat) | bochs -q
 
 clean:
