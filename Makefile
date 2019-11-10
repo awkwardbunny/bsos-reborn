@@ -16,7 +16,7 @@ bsos.iso: bskernel iso/boot/grub/grub.cfg
 	
 bskernel: kernel/linker.ld $(OBJ)
 	@echo Building kernel...
-	@$(LD) -T $< -o $@ $(OBJ)
+	@$(LD) $(LDFLAGS) -T $< -o $@ $(OBJ)
 
 dump: bskernel
 	@objdump -M intel -D $< > $@
@@ -43,7 +43,7 @@ clean:
 
 kernel/start.o: kernel/start.s
 	@echo Assembling start.o...
-	@$(AS) $< -o $@
+	@$(AS) --32 $< -o $@
 
 %.o: %.c $(INCL)
 	@echo Compiling $@...
