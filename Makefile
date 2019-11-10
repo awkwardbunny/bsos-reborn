@@ -22,7 +22,8 @@ dump: bskernel
 	@objdump -M intel -D $< > $@
 
 run: bsos.iso
-	(echo "c" && cat) | bochs -q
+	#(echo "c" && cat) | bochs -q
+	qemu-system-x86_64 -cdrom $^ -k en-us
 
 clean:
 	@echo Cleaning...
